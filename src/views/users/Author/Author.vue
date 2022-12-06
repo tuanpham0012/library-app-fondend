@@ -75,6 +75,8 @@
         <!-- Modal -->
         <create-modal>
         </create-modal>
+
+        <select-search-vue></select-search-vue>
         <!--  end card  -->
       </div>
       <!-- end col-md-12 -->
@@ -84,6 +86,7 @@
 </template>
 <script setup>
 import CreateModal from "./CreateAuthorModal.vue";
+import SelectSearchVue from "../../../components/Selects/SelectSearch.vue";
 import { ref, reactive, onBeforeMount, computed, watch } from "vue";
 import { useStore } from "vuex";
 import moment from 'moment';
