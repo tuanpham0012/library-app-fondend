@@ -280,11 +280,11 @@ export default {
 }
 </script>
 <style scoped>
-/* .sidebar-wrapper{
+.sidebar-wrapper{
 	padding-right: 1rem;
     overflow: hidden;
   }
   .sidebar-wrapper:hover{
-	overflow-y: scroll;
-  } */
+	overflow-y: overlay;
+  }
 </style>
