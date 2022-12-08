@@ -13,7 +13,6 @@
             <ul class="options" v-if="api != null && api.length > 0">
                 <li v-for="(item, index) in api" :key="index" :class="{'selected' : index == indexValue}" @click = "selected(item.book_name,index)">{{item.book_name}}</li>
             </ul>
-        
       </div>
     </div>
     </div>
