@@ -1,8 +1,5 @@
-import axios from 'axios';
+import axios from '../axios-config';
 import * as url from '../url-config';
-
-axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.headers.post['Accept'] = 'application/json';
 
 export default {
     namespaced: true,
@@ -12,6 +9,7 @@ export default {
             token: null,
             authors: null,
             author: null,
+            countries: null,
         }
     },
 
@@ -24,6 +22,9 @@ export default {
         },
         SET_AUTHOR_DETAIL(state, payload){
             state.author = payload;
+        },
+        SET_COUNTRIES_LIST(state, payload){
+            state.countries = payload;
         }
     },
 
@@ -40,6 +41,20 @@ export default {
                 console.log(res.data);
                 commit('SET_AUTHOR_LIST', res.data);
                 commit('SET_LOADING_STATE', false);
+              }).catch(err => {
+                console.log(err);
+              })
+        },
+
+        async getListCountries({commit}){
+            // commit('SET_LOADING_STATE', true);
+            await axios({
+                method: 'GET',
+                url: 'http://tenant-api.test/api/v1/countries/get_all', //url.url_country.RESOURCE, // 
+            }).then(res => {
+                console.log(res.data);
+                commit('SET_COUNTRIES_LIST', res.data);
+                // commit('SET_LOADING_STATE', false);
               }).catch(err => {
                 console.log(err);
               })
