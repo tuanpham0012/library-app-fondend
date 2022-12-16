@@ -3,7 +3,7 @@
     <side-bar></side-bar>
     <div class="main-panel">
       <nav-bar></nav-bar>
-      <!-- <loading v-if="loading"></loading> -->
+      <loading v-if="loading"></loading>
       <div class="main-content">
         <router-view></router-view>
       </div>

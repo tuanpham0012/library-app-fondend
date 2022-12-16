@@ -17,8 +17,7 @@
                   <button
                     type="button"
                     class="btn btn-sm btn-primary btn-fill"
-                    data-toggle="modal"
-                    data-target="#myModal"
+                    @click="toggleModalCreate()"
                   >
                     Thêm mới
                   </button>
@@ -73,7 +72,7 @@
           </div>
         </div>
         <!-- Modal -->
-        <create-modal>
+        <create-modal v-if="showModelCreate" @close-modal="toggleModalCreate()" @update-data="getData()">
         </create-modal>
 
         
@@ -92,6 +91,10 @@ import { useStore } from "vuex";
 import moment from 'moment';
 
 const store = useStore();
+
+const showModelCreate = ref(false);
+
+const toggleModalCreate = () => showModelCreate.value = !showModelCreate.value;
 
 const authors = computed(() => store.state.user.authors ?? null);
 

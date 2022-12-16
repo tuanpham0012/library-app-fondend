@@ -21,20 +21,98 @@
   }
 
   .card .content{
-    padding: 25px !important;
+    padding: 25px;
   }
 
   .table{
     margin: 0.875rem 0.3rem;
   }
 
-  .modal-header{
-    padding: 0.875rem;
-    background-color: rgb(37, 37, 241);
-    color: aliceblue;
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1060;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    outline: 0;
+    background-color: rgba(163, 163, 163, 0.541);
+    padding-top: 5em;
+}
+.fade {
+    transition: 1 opacity .15s linear;
+}
+.modal.show .modal-dialog {
+    transform: none;
+}
+.modal.fade .modal-dialog {
+    transition: transform .3s ease-out;
+    transform: translate(0,-50px);
+}
+.modal-dialog {
+    position: relative;
+    width: auto;
+    margin: 0 auto;
+    pointer-events: none;
+    animation: modal-move 0.5s ease-in-out;
+    border-radius: 12px !important;
+}
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
+    outline: 0;
+}
+.modal-header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem 0.4rem;
+    background-color: rgb(50, 146, 255);
+    color: #ffffff;
     font-size: 1rem;
-  }
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: calc(.3rem - 1px);
+    border-top-right-radius: calc(.3rem - 1px);
+}
+.modal-body {
+    position: relative;
+    flex: 1 1 auto;
+    padding: 1rem;
+}
+.modal-footer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: flex-end;
+    padding: .75rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom-right-radius: calc(.3rem - 1px);
+    border-bottom-left-radius: calc(.3rem - 1px);
+}
 
-  .close{
-    color: rgb(255, 255, 255);
-  }
+.modal .card .content{
+  padding: 0.5rem !important;
+}
+.modal-lg{
+  max-width: 800px;
+}
+
+.modal-xl{
+  max-width: 1140px;
+}
+@keyframes modal-move {
+  0%   {top: -50px;}
+  100%  {top: 0px;}
+}
