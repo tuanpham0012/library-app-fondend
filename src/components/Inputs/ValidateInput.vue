@@ -5,22 +5,24 @@
     :value="props.modelValue"
     @input="onChanged"
     :placeholder="placeholder"
-    name="email"
     type="text"
     required="true"
     autocomplete="off"
     aria-required="true"
     aria-invalid="true"
   />
-  <label v-if="props.error !== null" class="error" for="email"
-    >{{ props.error }}</label
+  <div v-if="props.error !== null">
+    <label class="error" v-for="(item, index) in props.error" :key="index"
+    >{{ item }}</label
   >
+  </div>
+  
 </template>
 <script setup>
 import { ref } from "vue";
 const props = defineProps({
   error: {
-    type: [String, Number],
+    type: [String, Number, Array],
     default: null,
   },
   placeholder: {
@@ -38,4 +40,10 @@ const onChanged = (e) => {
     emit('update:modelValue', e.currentTarget.value)
 }
 </script>
-<style lang=""></style>
+<style scoped>
+.error{
+  font-weight: 500;
+  font-size: 1em;
+  color: rgb(255, 2, 2);
+}
+</style>

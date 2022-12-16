@@ -1,21 +1,25 @@
 <template>
-    <input
+    <textarea
       class="form-control"
       :class="{ 'error' : props.error != null }"
       :value="props.modelValue"
       @input="onChanged"
       :placeholder="placeholder"
-      type="date"
-    />
+      type="text"
+      required="true"
+      autocomplete="off"
+      aria-required="true"
+      aria-invalid="true"
+    ></textarea>
     <div v-if="props.error !== null">
-    <label class="error" v-for="(item, index) in props.error" :key="index"
-    >{{ item }}</label
-  >
-  </div>
+      <label class="error" v-for="(item, index) in props.error" :key="index"
+      >{{ item }}</label
+    >
+    </div>
+    
   </template>
   <script setup>
   import { ref } from "vue";
-  import moment from 'moment';
   const props = defineProps({
     error: {
       type: [String, Number, Array],
@@ -27,9 +31,6 @@
     },
     modelValue: {
       type: [String, Number],
-      default:function(){
-        return moment().format();
-      }
     },
   });
   
@@ -40,9 +41,10 @@
   }
   </script>
   <style scoped>
-.error{
-  font-weight: 500;
-  font-size: 1em;
-  color: rgb(255, 2, 2);
-}</style>
+  .error{
+    font-weight: 500;
+    font-size: 1em;
+    color: rgb(255, 2, 2);
+  }
+  </style>
   
