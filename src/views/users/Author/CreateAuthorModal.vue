@@ -2,7 +2,7 @@
   <modal title="Thêm mới Tác giả" @close-modal="closeModal()">
     <template v-slot:body>
       <div class="col-md-4">
-        <input type="file" id="image" style="display:none" accept="image/jpeg" @change="uploadImage($event)" />
+        <input type="file" id="image" name="image" style="display:none" accept="image/jpeg" @change="uploadImage($event)" />
         <div class="avatar">
           <label class="image-preview" for="image">
             <img :src="previewImage ?? author.image"  class="upload-avatar"/>
@@ -133,6 +133,7 @@ const error = reactive({
 });
 
 const previewImage = ref(null);
+const dataImage = new FormData();
 
 const closeModal = () => {
   emits('close-modal');
@@ -140,12 +141,16 @@ const closeModal = () => {
 
 const uploadImage = (e) =>{
                 const image = e.target.files[0];
+                const newFileName = Date.now() + '_' + image.name;
                 const reader = new FileReader();
                 reader.readAsDataURL(image);
                 reader.onload = e =>{
                     previewImage.value = e.target.result;
                     console.log(image.name);
                 };
+                author.image = image.name;
+                dataImage.append('image', image, newFileName);
+                console.log(dataImage.get('image'));
             }
 
 const save = async () => {
@@ -179,6 +184,7 @@ const save = async () => {
       });
       store.commit('user/SET_LOADING_STATE', true);
       emits('update-data');
+      saveImage();
       emits('close-modal');
       
     })
@@ -193,6 +199,24 @@ const save = async () => {
       store.commit('user/SET_LOADING_STATE', true);
     });
 };
+
+const saveImage = async() => {
+  console.log(dataImage.get('image'));
+  await axios({
+    url : url_author.UPLOAD_FILE,
+    headers: {
+      'content-type': 'multipart/form-data',
+    },
+    method: 'POST',
+    data: dataImage,
+  }).then( res => {
+    console.log(res.data);
+    console.log('upload file success....');
+  }).catch( err => {
+    console.log('upload file error....');
+    console.log(err);
+  })
+}
 
 const resetValue = () => {
   // author = {

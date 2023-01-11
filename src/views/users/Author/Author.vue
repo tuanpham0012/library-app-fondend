@@ -52,7 +52,7 @@
                         rel="tooltip"
                         title="Edit"
                         class="btn btn-simple btn-warning btn-icon table-action edit"
-                        href="javascript:void(0)"
+                        @click="toggleModalUpdate(item.id)"
                       >
                         <i class="fa fa-edit"></i>
                       </a>
@@ -74,7 +74,8 @@
         <!-- Modal -->
         <create-modal v-if="showModelCreate" @close-modal="toggleModalCreate()" @update-data="getData()">
         </create-modal>
-
+        <update-modal v-if="showModelUpdate" @close-modal="toggleModalUpdate()" :id="authorId" >
+        </update-modal>
         
         <!--  end card  -->
       </div>
@@ -85,6 +86,7 @@
 </template>
 <script setup>
 import CreateModal from "./CreateAuthorModal.vue";
+import UpdateModal from "./UpdateAuthorModal.vue";
 
 import { ref, reactive, onBeforeMount, computed, watch } from "vue";
 import { useStore } from "vuex";
@@ -94,7 +96,16 @@ const store = useStore();
 
 const showModelCreate = ref(false);
 
-const toggleModalCreate = () => showModelCreate.value = !showModelCreate.value;
+const showModelUpdate = ref(false);
+
+const authorId = ref(null);
+
+const toggleModalCreate = () => showModelUpdate.value = !showModelUpdate.value;
+
+const toggleModalUpdate = (id) => {
+  authorId.value = id;
+  showModelUpdate.value = !showModelUpdate.value;
+}
 
 const authors = computed(() => store.state.user.authors ?? null);
 

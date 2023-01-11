@@ -46,6 +46,24 @@ export default {
               })
         },
 
+        async getAuthor({commit}, {id}){
+            commit('SET_LOADING_STATE', true);
+            console.log(id);
+            await axios({
+                method: 'GET',
+                url: url.url_author.RESOURCE + '/' + id,
+                headers: {
+                    'Accept': 'application/json'
+                  }
+            }).then(res => {
+                console.log(res.data);
+                commit('SET_AUTHOR_DETAIL', res.data.data);
+                commit('SET_LOADING_STATE', false);
+              }).catch(err => {
+                console.log(err);
+              })
+        },
+
         async getListCountries({commit}){
             // commit('SET_LOADING_STATE', true);
             await axios({
